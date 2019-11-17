@@ -1,0 +1,159 @@
+[
+  {
+    "slug": "01",
+    "name": "gotaga room's",
+    "begin": 1563262159548,
+    "description": "lorem ipsum",
+    "thumbnail": "https://s3.dexerto.com/thumbnails/_thumbnailLarge/youtube-logo-thumbnail-change-experiment.jpg",
+    "answers": [
+      {
+        "value": "batman",
+        "accepted": ["bat-man", "homme chauve-souris"],
+        "success_data": {
+          "x": 12,
+          "y": 12
+        }
+      },
+      {
+        "value": "trophé",
+        "accepted": ["médaille", "gain"],
+        "success_data": {
+          "x": 24,
+          "y": 5
+        }
+      }
+    ],
+    "payload": {
+      "default": {
+        "numberItems": 2,
+        "picture": "https://www.popcorngarage.com/assets/img/garage/ambiance3_dark.jpg",
+        "_nbMaxTries": 3
+      },
+      "vip": {
+        "markers": [
+          {
+            "firstLetter": "B",
+            "length": 6,
+            "x": 12,
+            "y": 12
+          },
+          {
+            "firstLetter": "T",
+            "length": 6,
+            "x": 24,
+            "y": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "slug": "02",
+    "name": "keep your attention",
+    "begin": 1563262159548,
+    "description": "lorem ipsum",
+    "thumbnail": "https://cdn.zeplin.io/5d2315ae627cdb37463279fa/assets/16C80746-EF96-4AD2-97B3-A2613A43BAC4.png",
+    "answers": [
+      {
+        "value": "3",
+        "success_data": {
+          "nextQuestion": {
+            "thumbnail": "https://cdn.zeplin.io/5d2315ae627cdb37463279fa/assets/16C80746-EF96-4AD2-97B3-A2613A43BAC4.png",
+            "video": "https://drive.google.com/uc?export=download&id=1WW1S08pqppfVKp48vWpi-tvL2cVxpQie",
+            "label": "Combien de viewers ninja a-t'il sur son stream ?"
+          }
+        }
+      },
+      {
+        "value": "40000",
+        "success_data": {
+          "nextQuestion": {
+            "thumbnail": "https://cdn.zeplin.io/5d2315ae627cdb37463279fa/assets/16C80746-EF96-4AD2-97B3-A2613A43BAC4.png",
+            "video": "https://drive.google.com/uc?export=download&id=1W5WP0X8abjRu9p82jc5GKfnHZCWdoQPI",
+            "label": "Combien de maillots sont accrochés sur les murs du couloir ?"
+          }
+        }
+      },
+      {
+        "value": "9",
+        "success_data": {
+          "nextQuestion": {
+            "thumbnail": "https://cdn.zeplin.io/5d2315ae627cdb37463279fa/assets/16C80746-EF96-4AD2-97B3-A2613A43BAC4.png",
+            "video": "https://drive.google.com/uc?export=download&id=1WoEg-z0si1aD312wrIx9hkKoM7v8TUo6",
+            "label": "Quel est le 3ème jeu cité par Gotaga ?"
+          }
+        }
+      },
+      {
+        "value": "fifa",
+        "success_data": {
+          "nextQuestion": {
+            "thumbnail": "https://cdn.zeplin.io/5d2315ae627cdb37463279fa/assets/16C80746-EF96-4AD2-97B3-A2613A43BAC4.png",
+            "video": "https://drive.google.com/uc?export=download&id=1eQReDrbLIlolXIyVBkeqZu_FvE3OJFzM",
+            "label": "Quelle ville représente le maillot porté par le bouseuh ?"
+          }
+        }
+      },
+      {
+        "value": "rennes",
+        "success_data": {
+          "nextQuestion": {
+            "thumbnail": "https://cdn.zeplin.io/5d2315ae627cdb37463279fa/assets/16C80746-EF96-4AD2-97B3-A2613A43BAC4.png",
+            "video": "https://drive.google.com/uc?export=download&id=1XakcZF035CV_ZhnIPCvu8EyPetVMREr6",
+            "label": "Combien y a-t-il de couleurs différentes sur le hoodie de Gotaga ?"
+          }
+        }
+      },
+      {
+        "value": "3",
+        "success_data": {
+          "nextQuestion": {
+            "thumbnail": "https://cdn.zeplin.io/5d2315ae627cdb37463279fa/assets/16C80746-EF96-4AD2-97B3-A2613A43BAC4.png",
+            "video": "https://drive.google.com/uc?export=download&id=1XJ19PmNas7IZmSaQyrhIcIofhyBIn3M_",
+            "label": "Quelle est la couleur de l'embout du cable sur la manette de Gotaga ?"
+          }
+        }
+      },
+      {
+        "value": "vert"
+      }
+    ],
+    "payload": {
+      "default": {
+        "firstQuestion": {
+          "thumbnail": "https://cdn.zeplin.io/5d2315ae627cdb37463279fa/assets/16C80746-EF96-4AD2-97B3-A2613A43BAC4.png",
+          "video": "https://drive.google.com/uc?export=download&id=1VpLT7hnSqtrDVhZ6BwRrBJeBNz-xXjOm",
+          "label": "Combien de doigts lève gotaga avant de tomber dans la piscine ?"
+        },
+        "interval": 20000
+      },
+      "vip": {
+        "interval": 0
+      }
+    },
+    "option": {
+      "ordered": true
+    }
+  },
+  {
+    "slug": "03",
+    "name": "friends an family",
+    "begin": 1563262159548,
+    "description": "lorem ipsum",
+    "thumbnail": "https://s3.dexerto.com/thumbnails/_thumbnailLarge/youtube-logo-thumbnail-change-experiment.jpg",
+    "answers": [
+      {
+        "value": "VITALITY4EVER"
+      }
+    ],
+    "payload": {
+      "default": {
+        "thumbnail": "https://cdn.zeplin.io/5d2315ae627cdb37463279fa/assets/16C80746-EF96-4AD2-97B3-A2613A43BAC4.png",
+        "video": "https://www.youtube.com/watch?v=Y5UdfR5vBJ0"
+      },
+      "vip": {
+        "tips": "this is my tips"
+      }
+    }
+  }
+]

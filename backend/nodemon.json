@@ -1,0 +1,14 @@
+{
+  "execMap": {
+    "ts": "ts-node -r tsconfig-paths/register"
+  },
+  "watch": [
+    ".env.dev",
+    ".env.docker",
+    ".env.production",
+    ".env.test",
+    "index.ts",
+    "src/",
+    "assets/"
+  ]
+}

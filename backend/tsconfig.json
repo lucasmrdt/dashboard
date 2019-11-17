@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "target": "es2018",
+    "module": "commonjs",
+    "outDir": "build",
+    "strict": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "assets/*": ["assets/*"],
+      "src/*": ["src/*"],
+      "config/*": ["src/config/*"],
+      "types/*": ["src/types/*"],
+      "utils/*": ["src/utils/*"],
+      "@/*": ["src/services/*"],
+      "config": ["src/config/index.ts"]
+    },
+    "esModuleInterop": true
+  }
+}
