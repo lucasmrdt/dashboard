@@ -23,6 +23,7 @@ services:
     build: ./backend
     volumes:
       - ./backend:/backend
+      - /backend/node_modules
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/dashboard
       - REDIS_URI=redis://redis:6379
@@ -38,6 +39,7 @@ services:
     build: ./frontend
     volumes:
       - ./frontend:/frontend
+      - /frontend/node_modules
     environment:
       - REACT_APP_API_URI=http://localhost:8080
     ports:
