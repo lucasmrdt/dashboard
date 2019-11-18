@@ -1,0 +1,7 @@
+{
+  "test": {
+    "default": "essaye maintenant !",
+    "success": "le test a réussi 😍",
+    "failed": "le test a échoué 😭"
+  }
+}
