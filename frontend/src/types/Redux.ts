@@ -1,8 +1,8 @@
-import {State as StoreState} from 'store';
+import { State as StoreState } from 'store';
 
 export type State = StoreState;
 
 export interface Action {
   type: string;
-  payload: {[key: string]: any};
+  payload: { [key: string]: any };
 }

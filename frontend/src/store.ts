@@ -1,20 +1,20 @@
-import {createStore, applyMiddleware, compose} from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import {persistStore, persistReducer} from 'redux-persist';
-import {createWhitelistFilter} from 'redux-persist-transform-filter';
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import { persistStore, persistReducer } from 'redux-persist';
+import { createWhitelistFilter } from 'redux-persist-transform-filter';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import reducer from 'reducer';
 import saga from 'saga';
 
-import {State as StateReducer} from 'reducer';
+import { State as StateReducer } from 'reducer';
 
-const persistingTest = createWhitelistFilter('testState', ['status']);
+const persistingTest = createWhitelistFilter('authState', ['jwtToken']);
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['testState'],
+  whitelist: ['authState'],
   transforms: [persistingTest],
   // @xxx autoMergeLevel2 allows to merge each reducer states with persisted fields of each one.
   stateReconciler: autoMergeLevel2,
@@ -30,7 +30,7 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = createStore(
   persistedReducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware)),
+  composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
 export const persistor = persistStore(store);

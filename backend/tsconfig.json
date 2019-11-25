@@ -13,7 +13,7 @@
       "config/*": ["src/config/*"],
       "types/*": ["src/types/*"],
       "utils/*": ["src/utils/*"],
-      "@/*": ["src/services/*"],
+      "modules/*": ["src/modules/*"],
       "config": ["src/config/index.ts"]
     },
     "esModuleInterop": true

@@ -2,11 +2,9 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "standard",
-    "node",
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
     "plugin:prettier/recommended",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:react/recommended"
   ],
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
@@ -44,6 +42,7 @@
     "arrow-parens": "off",
     "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
     "no-unused-vars": "off",
+    "react/prop-types": "off",
     "yoda": "off",
     "no-dupe-class-members": "off"
   },

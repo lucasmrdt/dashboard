@@ -6,8 +6,8 @@ export enum Env {
 
 export interface EnvConfig {
   NODE_ENV: Env;
-  JWT_PUBKEY: string;
-  JWT_AUDIENCE: string;
+  JWT_PUBLICKEY: string;
+  JWT_PRIVATEKEY: string;
   PORT?: string;
   MONGODB_LOGIN?: string;
   MONGODB_PASSWORD?: string;
@@ -17,6 +17,7 @@ export interface EnvConfig {
 
 interface JWTConfig {
   publicKey: string;
+  privateKey: string;
 }
 
 interface ExpressConfig {
@@ -31,25 +32,29 @@ interface RedisConfig {
   uri: string;
 }
 
-interface ParamConfig {
+export interface ParamConfig {
   name: string;
   type: string;
 }
 
-interface WidgetConfig {
+export interface WidgetConfig {
   name: string;
   description: string;
   params: ParamConfig[];
+  getter: (token: string, setting: any) => Promise<any>;
 }
 
-interface ServiceConfig {
+export interface Service {
   name: string;
+  icon: string;
+  needAuth: boolean;
+  token: string;
   widgets: WidgetConfig[];
 }
 
 export interface Config {
   isDev: boolean;
-  sevices: ServiceConfig[];
+  services: Service[];
   jwt: JWTConfig;
   express: ExpressConfig;
   mongoose: MongooseConfig;

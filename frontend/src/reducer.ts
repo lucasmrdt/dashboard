@@ -1,14 +1,22 @@
-import {combineReducers} from 'redux';
-import testReducer from 'modules/Test/testReducer';
+import { combineReducers } from 'redux';
+import authReducer from 'modules/Auth/reducer';
+import serviceReducer from 'modules/Service/reducer';
+import widgetReducer from 'modules/Widget/reducer';
 
-import {State as TestState} from 'modules/Test/testReducer';
+import { State as AuthState } from 'modules/Auth/reducer';
+import { State as ServiceState } from 'modules/Service/reducer';
+import { State as WidgetState } from 'modules/Widget/reducer';
 
 export type State = {
-  testState: TestState;
+  authState: AuthState;
+  serviceState: ServiceState;
+  widgetState: WidgetState;
 };
 
 const state = combineReducers({
-  testState: testReducer,
+  authState: authReducer,
+  serviceState: serviceReducer,
+  widgetState: widgetReducer,
 });
 
 export default state;

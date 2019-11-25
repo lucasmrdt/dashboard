@@ -1,20 +1,35 @@
-import {encodeUrlQuery} from 'utils';
+import { encodeUrlQuery } from 'utils';
+
+import { Response } from 'types/Api';
+
+const wait = (t: number) => new Promise(r => setTimeout(r, t));
 
 class Api {
-  headers: {[ket: string]: string} = {};
+  headers: { [ket: string]: string } = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 
   setAuthToken(authToken: string) {
-    this.headers.Authorization = `Bearer ${authToken}`;
+    this.headers.Authorization = authToken;
   }
 
-  async get(endpoint: string, query: {[key: string]: any} = {}) {
+  async get<T = any>(
+    endpoint: string,
+    query: { [key: string]: any } = {}
+  ): Promise<Response<T>> {
+    // await wait(1000);
     const res = await fetch(`${endpoint}?${encodeUrlQuery(query)}`, {
       headers: this.headers,
     });
     return res.json();
   }
 
-  async post(endpoint: string, query: {[key: string]: any} = {}) {
+  async post<T = any>(
+    endpoint: string,
+    query: { [key: string]: any } = {}
+  ): Promise<Response<T>> {
+    // await wait(1000);
     const res = await fetch(endpoint, {
       headers: this.headers,
       body: JSON.stringify(query),

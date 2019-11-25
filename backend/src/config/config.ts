@@ -1,4 +1,4 @@
-import { Config, Env } from '../types/configType';
+import {Config, Env} from '../types/configType';
 
 const NODE_ENV = process.env.NODE_ENV as Env;
 
@@ -17,7 +17,7 @@ const getConfig = (): Config => {
 
     default:
       throw new Error(
-        `Invalid NODE_ENV '${NODE_ENV}', must be one of [${avaibleEnv}].` // eslint-disable-line max-len
+        `Invalid NODE_ENV '${NODE_ENV}', must be one of [${avaibleEnv}].`, // eslint-disable-line max-len
       );
   }
 };

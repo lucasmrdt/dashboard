@@ -1,6 +1,6 @@
 import common_config from './config.common';
 
-import { Config } from '../types/configType';
+import {Config} from '../types/configType';
 
 const config: Config = {
   ...common_config,

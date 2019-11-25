@@ -147,7 +147,7 @@ Les hooks peuvent répondre à 3 différents lifecycles:
  - `after`: Règle métier à executer **après** qu'une réponse soit validé et est **correct**.
  - `error`: Règle métier à executer **après** qu'une réponse soit vérifié et est **incorrect**.
 
-[Examples here](../src/services/Game/hooks/index.ts)
+[Examples here](../src/modules/Game/hooks/index.ts)
 
 [^default]: **default**: Le rang des tous les joueurs par defaut.
 [^vip]: **vip**: Le rang vip est unique à chaque jeu, il correspond aux joueurs ayant utilisé un bonus sur un jeu.

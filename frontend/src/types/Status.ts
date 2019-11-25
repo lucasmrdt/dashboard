@@ -1,1 +1,6 @@
-export type Status = 'loading' | 'success' | 'failed' | 'default';
+export enum Status {
+  loading,
+  success,
+  failed,
+  default,
+}
