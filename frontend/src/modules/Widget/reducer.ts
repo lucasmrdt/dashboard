@@ -4,6 +4,7 @@ import {
   GET_WIDGETS_SUCCESS,
   GET_WIDGETS_FAILURE,
   SUBSCRIBE_TO_WIDGET_SUCCESS,
+  UNSUBSCRIBE_TO_WIDGET,
 } from './actions';
 
 import { Widget } from './types';
@@ -28,6 +29,14 @@ const widgetReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         widgets: [...state.widgets, widget],
+      };
+    }
+
+    case UNSUBSCRIBE_TO_WIDGET: {
+      const { widgetId } = action.payload;
+      return {
+        ...state,
+        widgets: state.widgets.filter(({ _id }) => _id !== widgetId),
       };
     }
 

@@ -18,31 +18,31 @@ services:
     logging:
         driver: none
 
-  # server:
-  #   container_name: dashboard-backend
-  #   build: ./backend
-  #   volumes:
-  #     - ./backend:/backend
-  #     - /backend/node_modules
-  #   environment:
-  #     - MONGODB_URI=mongodb://mongodb:27017/dashboard
-  #     - REDIS_URI=redis://redis:6379
-  #     - TZ=Europe/Paris
-  #   ports:
-  #     - "8080:8080"
-  #   links:
-  #     - redis
-  #     - mongodb
+  server:
+    container_name: dashboard-backend
+    build: ./backend
+    # volumes:
+      # - ./backend:/backend
+      # - /backend/node_modules
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/dashboard
+      - REDIS_URI=redis://redis:6379
+      - TZ=Europe/Paris
+    ports:
+      - "8080:8080"
+    links:
+      - redis
+      - mongodb
 
-  # frontend:
-  #   container_name: dashboard-frontend
-  #   build: ./frontend
-  #   volumes:
-  #     - ./frontend:/frontend
-  #     - /frontend/node_modules
-  #   environment:
-  #     - REACT_APP_API_URI=http://localhost:8080
-  #   ports:
-  #     - "3000:3000"
-  #   links:
-  #     - server
+  frontend:
+    container_name: dashboard-frontend
+    build: ./frontend
+    # volumes:
+      # - ./frontend:/frontend
+      # - /frontend/node_modules
+    environment:
+      - REACT_APP_API_URI=http://localhost:8080
+    ports:
+      - "3000:3000"
+    links:
+      - server

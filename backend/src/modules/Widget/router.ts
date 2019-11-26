@@ -1,11 +1,15 @@
 import { Router } from 'express';
+import Joi from '@hapi/joi';
 import httpStatus from 'http-status-codes';
+
+import { assertBody } from 'modules/Error/middlewares';
 import { onlyAuthed } from 'modules/Auth/middlewares';
 import {
   subscribeToWidget,
   unsubscribeToWidget,
   getWidgets,
-  getWidgetData
+  getWidgetData,
+  updateWidgetParams
 } from './controlers';
 import { success } from 'utils/apiUtils';
 
@@ -22,8 +26,23 @@ widgetRouter.get('/data/:widgetId', onlyAuthed, async (req, res) => {
   const { widgetId } = req.params;
   const widgetData = await getWidgetData(widgetId);
 
-  res.status(httpStatus.OK).json(success({ widgetData }));
+  res.status(httpStatus.OK).json(success(widgetData));
 });
+
+widgetRouter.post(
+  '/:widgetId',
+  assertBody({
+    params: Joi.object().required()
+  }),
+  onlyAuthed,
+  async (req, res) => {
+    const { widgetId } = req.params;
+    const { params } = req.body;
+    const widgetParams = await updateWidgetParams(widgetId, params);
+
+    res.status(httpStatus.OK).json(success(widgetParams));
+  }
+);
 
 widgetRouter.post(
   '/subscribe/:serviceName/:widgetName',

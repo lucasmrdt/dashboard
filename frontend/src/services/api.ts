@@ -2,7 +2,7 @@ import { encodeUrlQuery } from 'utils';
 
 import { Response } from 'types/Api';
 
-const wait = (t: number) => new Promise(r => setTimeout(r, t));
+// const wait = (t: number) => new Promise(r => setTimeout(r, t));
 
 class Api {
   headers: { [ket: string]: string } = {

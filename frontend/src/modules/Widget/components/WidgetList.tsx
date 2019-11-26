@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { Spin, Icon } from 'antd';
 import { useLocalStorage } from 'hooks';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import WidgetComponent from './Widget';
+import WidgetContainer from '../containers/WidgetContainer';
 
 import { Status } from 'types/Status';
 import { Widget } from '../types';
@@ -34,7 +34,9 @@ const WidgetList = ({ widgets, status, getWidgets }: Props) => {
         cols={COLS}
       >
         {widgets.map(widget => (
-          <WidgetComponent key={widget._id} widget={widget} />
+          <div style={{ overflow: 'scroll' }} key={widget._id}>
+            <WidgetContainer widget={widget} />
+          </div>
         ))}
       </ResponsiveReactGridLayout>
     ),

@@ -5,7 +5,12 @@ export interface Service {
   icon: string;
   needAuth: boolean;
   token: string;
-  widgets: { name: string; description: string }[];
+  widgets: {
+    name: string;
+    description: string;
+    icon: string;
+    defaultParams: { [key: string]: any };
+  }[];
 }
 
 // @xxx Mongoose

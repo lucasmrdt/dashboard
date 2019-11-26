@@ -1,5 +1,4 @@
 import { model, Schema } from 'mongoose';
-import { DEFAULT_REFRESH_INTERVAL } from './constants';
 import { SERVICE_MODEL_NAME } from 'modules/Service/model';
 import { USER_MODEL_NAME } from 'modules/User/model';
 
@@ -15,9 +14,13 @@ export const WidgetSchema = new Schema<Widget>(
       type: String,
       required: true
     },
+    icon: {
+      type: String,
+      required: true
+    },
     params: {
       type: Object,
-      default: { refreshInterval: DEFAULT_REFRESH_INTERVAL }
+      required: true
     },
     service: {
       type: Schema.Types.ObjectId,

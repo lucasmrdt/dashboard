@@ -19,7 +19,9 @@ const getMiddlewareRouter = () => {
   // Compresse response bodies
   middlewareRouter.use(compression());
   // Allow cors
-  middlewareRouter.use(cors());
+  middlewareRouter.use(
+    cors({ credentials: true, origin: 'http://localhost:3000' })
+  );
 
   return middlewareRouter;
 };

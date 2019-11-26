@@ -8,6 +8,10 @@ import { State } from 'types/Redux';
 const mapStateToProps = (state: State): StateProps => ({
   status: state.serviceState.status,
   services: state.serviceState.services,
+  counterByWidgetName: state.widgetState.widgets.reduce<{ [key: string]: number }>(
+    (acc, { name }) => ({ ...acc, [name]: (acc[name] || 0) + 1 }),
+    {}
+  ),
 });
 
 const mapDispatchToProps: DispatchProps = {

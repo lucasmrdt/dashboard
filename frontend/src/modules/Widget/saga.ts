@@ -6,6 +6,9 @@ import {
   SUBSCRIBE_TO_WIDGET,
   subscribeToWidgetSuccess,
   subscribeToWidgetFailure,
+  UNSUBSCRIBE_TO_WIDGET,
+  unsubscribeToWidgetFailure,
+  unsubscribeToWidgetSuccess,
 } from './actions';
 import * as widgetsApi from './api';
 
@@ -28,7 +31,6 @@ function* onGetWidgets() {
 }
 
 function* onSubscribeToWidget(action: Action) {
-  console.log(action);
   const { serviceName, widgetName } = action.payload;
 
   try {
@@ -49,7 +51,24 @@ function* onSubscribeToWidget(action: Action) {
   }
 }
 
+function* onUnsubscribeToWidget(action: Action) {
+  const { widgetId } = action.payload;
+
+  try {
+    const { success, data } = yield call(widgetsApi.unsubscribeToWidget, widgetId);
+    if (!success) {
+      throw new Error(data);
+    }
+
+    yield put(unsubscribeToWidgetSuccess());
+  } catch (e) {
+    console.log('Saga failed', e);
+    yield put(unsubscribeToWidgetFailure(e.message));
+  }
+}
+
 export default function*() {
   yield takeLatest(GET_WIDGETS, onGetWidgets);
   yield takeLatest(SUBSCRIBE_TO_WIDGET, onSubscribeToWidget);
+  yield takeLatest(UNSUBSCRIBE_TO_WIDGET, onUnsubscribeToWidget);
 }

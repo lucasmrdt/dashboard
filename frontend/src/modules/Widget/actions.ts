@@ -42,3 +42,20 @@ export const subscribeToWidgetFailure = (error: string) => ({
   type: SUBSCRIBE_TO_WIDGET_FAILURE,
   payload: { error },
 });
+
+export const UNSUBSCRIBE_TO_WIDGET = 'UNSUBSCRIBE_TO_WIDGET';
+export const unsubscribeToWidget = (widgetId: string) => ({
+  type: UNSUBSCRIBE_TO_WIDGET,
+  payload: { widgetId },
+});
+
+export const UNSUBSCRIBE_TO_WIDGET_SUCCESS = 'UNSUBSCRIBE_TO_WIDGET_SUCCESS';
+export const unsubscribeToWidgetSuccess = () => ({
+  type: UNSUBSCRIBE_TO_WIDGET_SUCCESS,
+});
+
+export const UNSUBSCRIBE_TO_WIDGET_FAILURE = 'UNSUBSCRIBE_TO_WIDGET_FAILURE';
+export const unsubscribeToWidgetFailure = (error: string) => ({
+  type: UNSUBSCRIBE_TO_WIDGET_FAILURE,
+  payload: { error },
+});

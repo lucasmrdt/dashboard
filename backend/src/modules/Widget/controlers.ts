@@ -2,6 +2,7 @@ import httpStatus from 'http-status-codes';
 import createError from 'http-errors';
 import config from 'config';
 import { WidgetModel } from './model';
+import { DEFAULT_REFRESH_INTERVAL } from './constants';
 import { ServiceModel } from 'modules/Service/model';
 
 import { User } from 'modules/User/types';
@@ -31,10 +32,15 @@ export const subscribeToWidget = async (
   }
 
   try {
-    console.log(widget);
     return await WidgetModel.create({
       name: widget.name,
       description: widget.description,
+      icon: widget.icon,
+      params: {
+        refreshInterval: DEFAULT_REFRESH_INTERVAL,
+        token: service.token,
+        ...widget.defaultParams
+      },
       user,
       service
     });
@@ -47,7 +53,7 @@ export const subscribeToWidget = async (
 };
 
 export const unsubscribeToWidget = async (widgetId: string) => {
-  WidgetModel.remove({ _id: widgetId }).exec();
+  WidgetModel.deleteOne({ _id: widgetId }).exec();
 };
 
 export const getWidgetData = async (widgetId: string) => {
@@ -84,11 +90,36 @@ export const getWidgetData = async (widgetId: string) => {
   }
 
   try {
-    return widgetConfig.getter(service.token, widget.params);
+    return await widgetConfig.getter(service.token, widget.params);
   } catch (e) {
     throw createError(httpStatus.SERVICE_UNAVAILABLE, {
       public: 'widget seems to be not avaibles',
       internal: `widget [${widget.name}]: ${e.message}`
     });
   }
+};
+
+export const updateWidgetParams = async (
+  widgetId: string,
+  params: { [key: string]: any }
+) => {
+  const widget = await WidgetModel.findOne({ _id: widgetId }).exec();
+  if (!widget) {
+    throw createError(
+      httpStatus.FORBIDDEN,
+      `no widget with id ${widgetId} avaible for user`
+    );
+  }
+
+  widget.params = { ...widget.params, ...params };
+  try {
+    await widget.save();
+  } catch (e) {
+    throw createError(httpStatus.BAD_REQUEST, {
+      public: 'fail to update widget params',
+      internal: `widget [${widget.name}]: ${e.message}`
+    });
+  }
+
+  return widget.params;
 };

@@ -1,13 +1,15 @@
 export enum Env {
   development = 'development',
   production = 'production',
-  test = 'test',
+  test = 'test'
 }
 
 export interface EnvConfig {
   NODE_ENV: Env;
   JWT_PUBLICKEY: string;
   JWT_PRIVATEKEY: string;
+  WEATHER_API_KEY: string;
+  STOCKS_API_KEY: string;
   PORT?: string;
   MONGODB_LOGIN?: string;
   MONGODB_PASSWORD?: string;
@@ -39,7 +41,9 @@ export interface ParamConfig {
 
 export interface WidgetConfig {
   name: string;
+  icon: string;
   description: string;
+  defaultParams: { [key: string]: any };
   params: ParamConfig[];
   getter: (token: string, setting: any) => Promise<any>;
 }

@@ -1,5 +1,4 @@
 import config from 'config';
-import { WidgetModel } from 'modules/Widget/model';
 import { ServiceModel } from 'modules/Service/model';
 
 const buildServices = async () => {
@@ -14,7 +13,9 @@ const buildServices = async () => {
   const servicePromises = config.services.map(async service => {
     const widgets = service.widgets.map(widget => ({
       name: widget.name,
-      description: widget.description
+      description: widget.description,
+      defaultParams: widget.defaultParams,
+      icon: widget.icon
     }));
 
     return ServiceModel.create({

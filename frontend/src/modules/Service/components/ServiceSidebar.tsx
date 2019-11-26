@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
-import { Menu, Icon } from 'antd';
-import { css, StyleSheet } from 'aphrodite';
+import { Menu, Icon, Badge, Tooltip } from 'antd';
+import { StyleSheet, css } from 'aphrodite';
 import Failure from 'fragments/Failure';
 import Loading from 'fragments/Loading';
 
@@ -10,13 +10,9 @@ import { Status } from 'types/Status';
 const { SubMenu } = Menu;
 
 const styles = StyleSheet.create({
-  // container: {
-  //   position: 'absolute',
-  //   left: 0,
-  //   height: '100%',
-  // },
   container: {
     height: '100%',
+    width: 300,
     borderRight: 0,
   },
   submenuContainer: {
@@ -36,11 +32,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  label: {
+    marginLeft: 10,
+  },
 });
 
 export interface StateProps {
   services: Service[];
   status: Status;
+  counterByWidgetName: { [key: string]: number };
 }
 
 export interface DispatchProps {
@@ -49,9 +49,17 @@ export interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-const ServiceSidebar = ({ services, status, subscribeToWidget }: Props) => {
-  const setupOnClick = (serviceName: string, widgetName: string) => () =>
-    subscribeToWidget(serviceName, widgetName);
+const ServiceSidebar = ({
+  services,
+  status,
+  subscribeToWidget,
+  counterByWidgetName,
+}: Props) => {
+  const setupOnClick = useCallback(
+    (serviceName: string, widgetName: string) => () =>
+      subscribeToWidget(serviceName, widgetName),
+    [subscribeToWidget]
+  );
 
   const success = useMemo(
     () =>
@@ -67,25 +75,22 @@ const ServiceSidebar = ({ services, status, subscribeToWidget }: Props) => {
         >
           {service.widgets.map(widget => (
             <Menu.Item
-              onClick={setupOnClick(service.name, widget.name)}
               key={widget.name}
+              onClick={setupOnClick(service.name, widget.name)}
             >
-              <Icon type={'plus'} />
-              <span style={{ margin: 0 }}>{widget.name.replace('_', ' ')}</span>
+              <Tooltip placement="right" title={widget.description}>
+                <Badge showZero count={counterByWidgetName[widget.name] || 0} />
+                <span className={css(styles.label)}>{widget.name.replace('_', ' ')}</span>
+              </Tooltip>
             </Menu.Item>
           ))}
         </SubMenu>
       )),
-    [services, setupOnClick]
+    [services, setupOnClick, counterByWidgetName]
   );
 
   return (
-    <Menu
-      mode={'inline'}
-      defaultSelectedKeys={['1']}
-      defaultOpenKeys={['sub1']}
-      style={styles.container}
-    >
+    <Menu mode={'inline'} style={styles.container}>
       {status === Status.loading && <Loading />}
       {status === Status.failed && <Failure />}
       {status === Status.success && success}
