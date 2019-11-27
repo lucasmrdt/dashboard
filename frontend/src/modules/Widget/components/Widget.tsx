@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   componentContainer: {
+    overflow: 'scroll',
     position: 'absolute',
     top: '50%',
     left: '50%',

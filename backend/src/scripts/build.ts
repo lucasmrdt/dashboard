@@ -2,14 +2,6 @@ import config from 'config';
 import { ServiceModel } from 'modules/Service/model';
 
 const buildServices = async () => {
-  // const services = await ServiceModel.find({}).exec();
-  // if (services.length) {
-  //   console.warn(
-  //     `Found '${services.length}' services, drop database to rebuild.`
-  //   );
-  //   return;
-  // }
-
   const servicePromises = config.services.map(async service => {
     const widgets = service.widgets.map(widget => ({
       name: widget.name,
