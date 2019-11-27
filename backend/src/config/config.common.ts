@@ -106,36 +106,29 @@ const config: Config = {
           name: 'price',
           description: 'Display the real time stock price of compagny',
           params: [{ name: 'compagny', type: 'string' }]
-        },
+        }
+      ]
+    },
+    {
+      name: 'time',
+      needAuth: false,
+      icon: 'clock',
+      token: "",
+      widgets: [
         {
-          getter: async (token, params) => {
-            const url = `https://api-v2.intrinio.com/securities/${params.compagny}/prices/realtime?api_key=${token}`;
+          getter: async (_, params) => {
+            const url = `http://worldtimeapi.org/api/timezone/${params.timezone}`;
             const res = await fetch(url);
             const json = await res.json();
-            return { ask: json.ask_price, bid: json.bid_price };
+            return { time: json.datetime };
           },
           defaultParams: {
-            compagny: 'AAPL'
+            timezone: 'Europe/Paris'
           },
           icon: 'sliders',
-          name: 'test',
-          description: 'this is a test',
-          params: [{ name: 'compagny', type: 'string' }]
-        },
-        {
-          getter: async (token, params) => {
-            const url = `https://api-v2.intrinio.com/securities/${params.compagny}/prices/realtime?api_key=${token}`;
-            const res = await fetch(url);
-            const json = await res.json();
-            return { toto: 'toto' };
-          },
-          defaultParams: {
-            compagny: 'AAPL'
-          },
-          icon: 'sliders',
-          name: 'zeflzebflbzef',
-          description: 'this is a teejfbzekjbfkjbst',
-          params: [{ name: 'compagny', type: 'string' }]
+          name: 'world clock',
+          description: 'Displays the time at a given timezone',
+          params: [{ name: 'timezone', type: 'string' }]
         }
       ]
     }
