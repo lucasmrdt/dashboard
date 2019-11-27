@@ -113,7 +113,7 @@ const config: Config = {
       name: 'time',
       needAuth: false,
       icon: 'clock',
-      token: "",
+      token: '',
       widgets: [
         {
           getter: async (_, params) => {
