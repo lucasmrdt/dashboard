@@ -29,7 +29,7 @@ export const subscribeToWidget = async (
   if (!widget) {
     throw createError(
       httpStatus.NOT_FOUND,
-      `unfound widget with name ${serviceName}`
+      `unfound widget with name ${widgetName}`
     );
   }
 

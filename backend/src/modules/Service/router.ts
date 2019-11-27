@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import Joi from '@hapi/joi';
 import httpStatus from 'http-status-codes';
-
 import { onlyAuthed } from 'modules/Auth/middlewares';
-import { getServices } from './controlers';
+import { getServices, setTokenToService } from './controlers';
 import { assertBody } from 'modules/Error/middlewares';
 import { success } from 'utils/apiUtils';
 
@@ -14,5 +13,19 @@ serviceRouter.get('/', onlyAuthed, async (req, res) => {
 
   res.status(httpStatus.OK).json(success({ services }));
 });
+
+serviceRouter.post(
+  '/:serviceName/auth',
+  onlyAuthed,
+  assertBody({ token: Joi.string().required() }),
+  async (req, res) => {
+    const { serviceName } = req.params;
+    const { token } = req.body;
+    console.log(serviceName);
+    await setTokenToService(serviceName, token);
+
+    res.status(httpStatus.OK).json(success(null));
+  }
+);
 
 export default serviceRouter;

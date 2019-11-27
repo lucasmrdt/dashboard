@@ -120,7 +120,7 @@ const config: Config = {
             const url = `http://worldtimeapi.org/api/timezone/${params.timezone}`;
             const res = await fetch(url);
             const json = await res.json();
-            return { time: json.datetime };
+            return { time: json.datetime.replace(/\..*/, '') };
           },
           defaultParams: {
             timezone: 'Europe/Paris'

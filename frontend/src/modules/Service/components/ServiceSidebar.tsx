@@ -79,7 +79,7 @@ const ServiceSidebar = ({
               onClick={setupOnClick(service.name, widget.name)}
             >
               <Tooltip placement="right" title={widget.description}>
-                <Badge showZero count={counterByWidgetName[widget.name] || 0} />
+                <Badge showZero count={counterByWidgetName[widget.name]} />
                 <span className={css(styles.label)}>{widget.name.replace('_', ' ')}</span>
               </Tooltip>
             </Menu.Item>
