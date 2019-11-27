@@ -123,7 +123,7 @@ const WidgetComponent = ({ widget, removeWidget }: Props) => {
 
   const refreshData = useCallback(async () => {
     clearTimeout(timeoutId.current);
-    const data = await callApi(widgetApi.getWidgetData, widget._id);
+    const data = await callApi(widgetApi.getWidgetData, widget.id);
     data && setData(data);
     timeoutId.current = setTimeout(refreshData, params.refreshInterval * 1000);
   }, [params, widget, setData, callApi]);
@@ -131,15 +131,15 @@ const WidgetComponent = ({ widget, removeWidget }: Props) => {
   const updateParams = useCallback(
     _.throttle(async (key: string, value: any) => {
       const newParams = { ...params, [key]: value };
-      const data = await callApi(widgetApi.updateWidgetParams, widget._id, newParams);
+      const data = await callApi(widgetApi.updateWidgetParams, widget.id, newParams);
       data && setParams(data);
     }, 1000),
     [params, setParams, callApi]
   );
 
   const deleteWidget = useCallback(() => {
-    removeWidget(widget._id);
-  }, [widget._id, removeWidget]);
+    removeWidget(widget.id);
+  }, [widget.id, removeWidget]);
 
   const dropdownMenu = useMemo(
     () => (

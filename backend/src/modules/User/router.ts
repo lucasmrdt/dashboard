@@ -44,7 +44,9 @@ userRouter.post(
 userRouter.get('/me', onlyAuthed, (req, res) => {
   const { user } = req as UserRequest;
 
-  res.status(httpStatus.OK).json(success({ user }));
+  res
+    .status(httpStatus.OK)
+    .json(success({ name: user.name, email: user.email }));
 });
 
 export default userRouter;

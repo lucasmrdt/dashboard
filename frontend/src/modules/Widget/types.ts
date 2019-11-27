@@ -1,7 +1,7 @@
 import { SFC } from 'react';
 
 export interface Widget {
-  _id: string;
+  id: string;
   icon: string;
   name: string;
   description: string;

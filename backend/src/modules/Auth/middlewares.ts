@@ -18,16 +18,16 @@ export const onlyAuthed: RequestHandler = async (req, res, next) => {
       algorithms: ['RS256']
     });
   } catch {
-    return next(createError(httpStatus.FORBIDDEN, 'invalid jwt token'));
+    return next(createError(httpStatus.UNAUTHORIZED, 'invalid jwt token'));
   }
 
   const modelUser = await UserModel.findOne({
     token: (user as any).token
   }).exec();
-  if (!UserModel) {
-    return next(createError(httpStatus.FORBIDDEN, 'unfound user'));
+  if (!modelUser) {
+    return next(createError(httpStatus.UNAUTHORIZED, 'unfound user'));
   }
 
-  (req as any).user = modelUser;
+  (req as any).user = modelUser.toJSON();
   next();
 };

@@ -14,7 +14,7 @@ export const getUserWithToken = async ({ token }: { token: string }) => {
     }
     return user;
   } catch (e) {
-    throw createError(httpStatus.NOT_FOUND, {
+    throw createError(httpStatus.UNAUTHORIZED, {
       public: 'invalid user oauth token',
       internal: `Mongoose: ${e.message}`
     });
@@ -41,7 +41,7 @@ export const getUserWithCredential = async ({
 
     return user;
   } catch (e) {
-    throw createError(httpStatus.NOT_FOUND, {
+    throw createError(httpStatus.UNAUTHORIZED, {
       public: 'invalid user credential',
       internal: `Mongoose: ${e.message}`
     });

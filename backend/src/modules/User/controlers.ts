@@ -26,7 +26,7 @@ export const createUserWithToken = async ({
       token,
       jwtToken
     });
-    return user;
+    return user.toJSON();
   } catch (e) {
     throw createError(httpStatus.FORBIDDEN, {
       public: 'account already exists or invalid',
@@ -47,18 +47,4 @@ export const createUserWithCredential = async ({
   const token = bcrypt.hashSync(`${email}:${password}`, 10); // eslint-disable-line
 
   return createUserWithToken({ email, name, token });
-};
-
-export const getUserByEmail = async ({ email }: { email: string }) => {
-  try {
-    const user = await UserModel.findOne({
-      email
-    });
-    return user;
-  } catch (e) {
-    throw createError(httpStatus.FORBIDDEN, {
-      public: 'unfound user',
-      internal: `Mongoose: ${e.message}`
-    });
-  }
 };

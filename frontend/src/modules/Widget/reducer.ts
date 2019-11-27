@@ -36,7 +36,7 @@ const widgetReducer = (state: State = initialState, action: Action): State => {
       const { widgetId } = action.payload;
       return {
         ...state,
-        widgets: state.widgets.filter(({ _id }) => _id !== widgetId),
+        widgets: state.widgets.filter(({ id }) => id !== widgetId),
       };
     }
 
