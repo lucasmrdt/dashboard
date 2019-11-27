@@ -2,13 +2,13 @@ import config from 'config';
 import { ServiceModel } from 'modules/Service/model';
 
 const buildServices = async () => {
-  const services = await ServiceModel.find({}).exec();
-  if (services.length) {
-    console.warn(
-      `Found '${services.length}' services, drop database to rebuild.`
-    );
-    return;
-  }
+  // const services = await ServiceModel.find({}).exec();
+  // if (services.length) {
+  //   console.warn(
+  //     `Found '${services.length}' services, drop database to rebuild.`
+  //   );
+  //   return;
+  // }
 
   const servicePromises = config.services.map(async service => {
     const widgets = service.widgets.map(widget => ({
@@ -18,13 +18,21 @@ const buildServices = async () => {
       icon: widget.icon
     }));
 
-    return ServiceModel.create({
-      name: service.name,
-      icon: service.icon,
-      token: service.token,
-      needAuth: service.needAuth,
-      widgets
-    });
+    return ServiceModel.updateOne(
+      { name: service.name },
+      {
+        name: service.name,
+        icon: service.icon,
+        token: service.token,
+        needAuth: service.needAuth,
+        widgets
+      },
+      {
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true
+      }
+    );
   });
 
   await Promise.all(servicePromises);

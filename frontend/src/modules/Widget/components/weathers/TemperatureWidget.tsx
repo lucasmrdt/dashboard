@@ -16,17 +16,6 @@ export const TEMPERATURE_OPTIONS: { [key: string]: OptionHOC } = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
   title: {
     fontSize: 40,
   },
@@ -60,7 +49,7 @@ export const TemperatureWidget: WidgetImplementation<Data, Params> = ({
   params,
   data,
 }) => (
-  <div className={css(styles.container)}>
+  <>
     <p>{params.city}</p>
     <h1 className={css(styles.title)}>{kelvinToCelsius(data.current).toFixed(1)} °</h1>
     <div>
@@ -75,5 +64,5 @@ export const TemperatureWidget: WidgetImplementation<Data, Params> = ({
         </span>
       </h2>
     </div>
-  </div>
+  </>
 );

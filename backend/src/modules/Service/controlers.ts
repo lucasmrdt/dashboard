@@ -1,12 +1,13 @@
+import _ from 'lodash';
 import httpStatus from 'http-status-codes';
 import createError from 'http-errors';
 import { ServiceModel } from './model';
 
 export const getServices = async () => {
-  const services = await ServiceModel.find({}, { token: false }).exec();
+  const services = await ServiceModel.find({}).exec();
   return services.map(service => ({
-    ...service.toJSON(),
-    locked: service.token === ''
+    ..._.omit(service.toJSON(), ['token']),
+    locked: !service.token && service.needAuth
   }));
 };
 

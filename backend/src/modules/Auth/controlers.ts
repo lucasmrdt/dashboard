@@ -6,7 +6,6 @@ import { UserModel } from 'modules/User/model';
 
 export const getUserWithToken = async ({ token }: { token: string }) => {
   try {
-    console.log(token);
     const user = await UserModel.findOne({ token }).exec();
 
     if (!user) {

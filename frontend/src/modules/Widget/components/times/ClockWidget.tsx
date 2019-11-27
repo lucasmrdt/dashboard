@@ -6,7 +6,7 @@ import TimezoneSelect from 'fragments/TimezoneSelect';
 import { WidgetImplementation, OptionHOC } from '../../types';
 import moment from 'moment';
 
-export const WORLD_CLOCK_OPTIONS: { [key: string]: OptionHOC } = {
+export const CLOCK_OPTIONS: { [key: string]: OptionHOC } = {
   timezone: (updater, params) => (
     <TimezoneSelect
       defaultValue={params.timezone}
@@ -17,31 +17,8 @@ export const WORLD_CLOCK_OPTIONS: { [key: string]: OptionHOC } = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
   title: {
     fontSize: 40,
-  },
-  label: {
-    fontSize: 13,
-    color: 'grey',
-  },
-  minLabel: {
-    color: 'blue',
-    padding: 5,
-  },
-  maxLabel: {
-    color: 'red',
-    padding: 5,
   },
 });
 
@@ -53,10 +30,9 @@ interface Params {
   timezone: string;
 }
 
-export const WorldClockWidget: WidgetImplementation<Data, Params> = ({ params, data }) => (
-  <div className={css(styles.container)}>
+export const ClockWidget: WidgetImplementation<Data, Params> = ({ params, data }) => (
+  <>
     <p>{params.timezone}</p>
     <h1 className={css(styles.title)}>{moment(data.time).format('HH:mm')}</h1>
-    <p>{moment(data.time).format('DD MMMM YYYY')}</p>
-  </div>
+  </>
 );

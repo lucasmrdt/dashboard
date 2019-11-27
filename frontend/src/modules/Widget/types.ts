@@ -14,7 +14,11 @@ export interface DefaultParams {
 
 export type ParamsUpdater = (key: string, value: any) => any;
 
-export type OptionHOC = (updater: ParamsUpdater, params: { [key: string]: any }) => any;
+export type OptionHOC = (
+  updater: ParamsUpdater,
+  params: { [key: string]: any },
+  data: { [key: string]: any }
+) => any;
 
 export type WidgetImplementation<U = any, T = any> = SFC<{
   data: U;

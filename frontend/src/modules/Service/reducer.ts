@@ -1,4 +1,9 @@
-import { GET_SERVICES, GET_SERVICES_FAILURE, GET_SERVICES_SUCCESS } from './actions';
+import {
+  GET_SERVICES,
+  GET_SERVICES_FAILURE,
+  GET_SERVICES_SUCCESS,
+  AUTH_SERVICE_SUCCESS,
+} from './actions';
 
 import { Service } from './types';
 import { Status } from 'types/Status';
@@ -36,6 +41,16 @@ const serviceReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         status: Status.failed,
+      };
+    }
+
+    case AUTH_SERVICE_SUCCESS: {
+      const { serviceName } = action.payload;
+      return {
+        ...state,
+        services: state.services.map(service =>
+          service.name === serviceName ? { ...service, locked: false } : service
+        ),
       };
     }
 

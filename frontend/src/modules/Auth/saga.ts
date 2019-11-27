@@ -23,7 +23,6 @@ function* onAuthWithToken({ payload }: Action) {
     if (!success) {
       throw new Error(data);
     }
-    console.log(data);
     yield put(authSuccess(data.jwtToken));
   } catch (e) {
     console.log('Saga failed', e);

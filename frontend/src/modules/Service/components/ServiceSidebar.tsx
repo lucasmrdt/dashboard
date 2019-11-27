@@ -1,18 +1,26 @@
 import React, { useMemo, useCallback } from 'react';
-import { Menu, Icon, Badge, Tooltip } from 'antd';
+import { Menu, Icon, Badge, Tooltip, Button } from 'antd';
+import firebase from 'firebase';
 import { StyleSheet, css } from 'aphrodite';
+import { useHistory } from 'react-router';
 import Failure from 'fragments/Failure';
 import Loading from 'fragments/Loading';
 
-import { Service } from '../types';
 import { Status } from 'types/Status';
+import { Service } from '../types';
 
 const { SubMenu } = Menu;
+
+const GITHUB_PROVIDER = new firebase.auth.GithubAuthProvider().addScope('user repo');
+
+const PROVIDER_BY_SERVICES: { [key: string]: firebase.auth.AuthProvider } = {
+  github: GITHUB_PROVIDER,
+};
 
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    width: 300,
+    background: 'white',
     borderRight: 0,
   },
   submenuContainer: {
@@ -35,6 +43,12 @@ const styles = StyleSheet.create({
   label: {
     marginLeft: 10,
   },
+  disconnect: {
+    position: 'absolute',
+    bottom: 20,
+    left: '50%',
+    transform: 'translateX(-50%)',
+  },
 });
 
 export interface StateProps {
@@ -45,6 +59,8 @@ export interface StateProps {
 
 export interface DispatchProps {
   subscribeToWidget: (serviceName: string, widgetName: string) => any;
+  setTokenToService: (serviceName: string, token: string) => any;
+  disconnect: () => any;
 }
 
 type Props = StateProps & DispatchProps;
@@ -54,7 +70,31 @@ const ServiceSidebar = ({
   status,
   subscribeToWidget,
   counterByWidgetName,
+  setTokenToService,
+  disconnect,
 }: Props) => {
+  const history = useHistory();
+
+  const onDisconnect = useCallback(() => {
+    history.push('/');
+    disconnect();
+  }, [disconnect, history]);
+
+  const authService = useCallback(
+    (serviceName: string) => async () => {
+      const provider = PROVIDER_BY_SERVICES[serviceName];
+      if (!provider) {
+        return console.error(`undefined provider for service '${serviceName}'`);
+      }
+      const result = await firebase.auth().signInWithPopup(provider);
+      if (!result.credential) {
+        return console.error(`unfound token for service '${serviceName}'`);
+      }
+      setTokenToService(serviceName, (result.credential as any).accessToken);
+    },
+    [setTokenToService]
+  );
+
   const setupOnClick = useCallback(
     (serviceName: string, widgetName: string) => () =>
       subscribeToWidget(serviceName, widgetName),
@@ -63,39 +103,57 @@ const ServiceSidebar = ({
 
   const success = useMemo(
     () =>
-      services.map(service => (
-        <SubMenu
-          key={service.name}
-          title={
-            <span>
-              <Icon type={service.icon} />
-              {service.name}
-            </span>
-          }
-        >
-          {service.widgets.map(widget => (
-            <Menu.Item
-              key={widget.name}
-              onClick={setupOnClick(service.name, widget.name)}
-            >
-              <Tooltip placement="right" title={widget.description}>
-                <Badge showZero count={counterByWidgetName[widget.name]} />
-                <span className={css(styles.label)}>{widget.name.replace('_', ' ')}</span>
-              </Tooltip>
-            </Menu.Item>
-          ))}
-        </SubMenu>
-      )),
-    [services, setupOnClick, counterByWidgetName]
+      services.map(service =>
+        service.locked ? (
+          <Menu.Item onClick={authService(service.name)}>
+            <Icon type={'lock'} /> {service.name}
+          </Menu.Item>
+        ) : (
+          <SubMenu
+            key={service.name}
+            title={
+              <span>
+                <Icon type={service.icon} />
+                {service.name}
+              </span>
+            }
+          >
+            {service.widgets.map(widget => (
+              <Menu.Item
+                key={widget.name}
+                onClick={setupOnClick(service.name, widget.name)}
+              >
+                <Tooltip placement="right" title={widget.description}>
+                  {counterByWidgetName[widget.name] ? (
+                    <Badge count={counterByWidgetName[widget.name]} />
+                  ) : (
+                    <Icon type={widget.icon} />
+                  )}
+                  <span className={css(styles.label)}>
+                    {widget.name.replace('_', ' ')}
+                  </span>
+                </Tooltip>
+              </Menu.Item>
+            ))}
+          </SubMenu>
+        )
+      ),
+    [services, setupOnClick, counterByWidgetName, authService]
   );
 
   return (
-    <Menu mode={'inline'} style={styles.container}>
+    <Menu mode={'inline'} className={css(styles.container)}>
       {status === Status.loading && <Loading />}
       {status === Status.failed && <Failure />}
       {status === Status.success && success}
+      <div>
+        <Button className={css(styles.disconnect)} onClick={onDisconnect}>
+          disconnect
+        </Button>
+      </div>
     </Menu>
   );
 };
 
+// @ts-ignore
 export default ServiceSidebar;

@@ -22,12 +22,15 @@ const styles = StyleSheet.create({
   formButton: {
     width: '100%',
   },
+  sider: {
+    height: '100%',
+  },
 });
 
 const ServicePage = () => {
   return (
     <Layout className={css(styles.container)}>
-      <Sider>
+      <Sider className={css(styles.sider)}>
         <ServiceSidebarContainer />
       </Sider>
       <Content>

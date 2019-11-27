@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import ServiceSidebar from '../components/ServiceSidebar';
+import { authService } from '../actions';
 import { subscribeToWidget } from 'modules/Widget/actions';
+import { disconnect } from 'modules/Auth/actions';
 
 import { StateProps, DispatchProps } from 'modules/Service/components/ServiceSidebar';
 import { State } from 'types/Redux';
@@ -16,6 +18,8 @@ const mapStateToProps = (state: State): StateProps => ({
 
 const mapDispatchToProps: DispatchProps = {
   subscribeToWidget,
+  setTokenToService: authService,
+  disconnect,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServiceSidebar);

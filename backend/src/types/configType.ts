@@ -52,7 +52,7 @@ export interface Service {
   name: string;
   icon: string;
   needAuth: boolean;
-  token: string;
+  token: string | null;
   widgets: WidgetConfig[];
 }
 

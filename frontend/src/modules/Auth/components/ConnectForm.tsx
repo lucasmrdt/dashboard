@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
   formButton: {
     width: '100%',
   },
+  register: {
+    marginTop: 20,
+  },
 });
 
 export interface StateProps {
@@ -55,15 +58,12 @@ const AuthForm = ({ status, connectWithToken, connectWithCredential }: Props) =>
           <CredentialForm onResponse={onCredentialSubmit} />
         </Row>
         <Row>
-          <Col span={12} className={css(styles.center)}>
-            <FacebookButton onResponse={onOAuthSubmit} />
-          </Col>
-          <Col span={12} className={css(styles.center)}>
+          <Col span={24} className={css(styles.center)}>
             <FacebookButton onResponse={onOAuthSubmit} />
           </Col>
         </Row>
         <Row>
-          <p>
+          <p className={css(styles.register)}>
             No account yet? <Link to={REGISTER_PATH}>Register now!</Link>
           </p>
         </Row>

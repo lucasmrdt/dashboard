@@ -26,7 +26,7 @@ export const ServiceSchema = new Schema<Service>(
         name: { type: String, required: true, unique: true },
         description: { type: String, required: true },
         icon: { type: String, required: true },
-        defaultParams: { type: Object, required: true }
+        defaultParams: { type: Object, default: {} }
       }
     ]
   },

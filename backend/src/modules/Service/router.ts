@@ -21,7 +21,6 @@ serviceRouter.post(
   async (req, res) => {
     const { serviceName } = req.params;
     const { token } = req.body;
-    console.log(serviceName);
     await setTokenToService(serviceName, token);
 
     res.status(httpStatus.OK).json(success(null));

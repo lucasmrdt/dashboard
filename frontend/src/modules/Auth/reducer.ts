@@ -3,6 +3,7 @@ import {
   AUTH_WITH_TOKEN,
   AUTH_FAILED,
   AUTH_SUCCESS,
+  DISCONNECT,
 } from 'modules/Auth/actions';
 
 import { Status } from 'types/Status';
@@ -41,6 +42,14 @@ const authReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         status: Status.failed,
+      };
+    }
+
+    case DISCONNECT: {
+      return {
+        ...state,
+        jwtToken: '',
+        status: Status.default,
       };
     }
 

@@ -16,19 +16,6 @@ export const WEATHER_OPTIONS: { [key: string]: OptionHOC } = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 40,
-  },
   icon: {
     userSelect: 'none',
   },
@@ -43,8 +30,8 @@ interface Params {
 }
 
 export const WeatherWidget: WidgetImplementation<Data, Params> = ({ params, data }) => (
-  <div className={css(styles.container)}>
+  <>
     <p>{params.city}</p>
     <img draggable={false} className={css(styles.icon)} alt={'weather'} src={data.icon} />
-  </div>
+  </>
 );

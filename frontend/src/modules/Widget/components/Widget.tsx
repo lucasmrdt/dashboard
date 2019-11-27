@@ -10,7 +10,10 @@ import { WeatherWidget, WEATHER_OPTIONS } from './weathers/WeatherWidget';
 import { WindWidget, WIND_OPTIONS } from './weathers/WindWidget';
 import { PriceWidget, PRICE_OPTIONS } from './stocks/PriceWidget';
 import { InformationWidget, INFORMATION_OPTIONS } from './stocks/InformationWidget';
-import { WorldClockWidget, WORLD_CLOCK_OPTIONS } from './clocks/WorldClockWidget';
+import { ClockWidget, CLOCK_OPTIONS } from './times/ClockWidget';
+import { DateWidget, DATE_OPTIONS } from './times/DateWidget';
+import { ProfileWidget } from './github/ProfileWidget';
+import { RepositoryWidget, REPOSITORY_OPTIONS } from './github/RepositoryWidget';
 
 import { Status } from 'types/Status';
 import { Response } from 'types/Api';
@@ -24,7 +27,10 @@ const WIDGET_BY_NAMES: {
   wind: [WindWidget, WIND_OPTIONS],
   price: [PriceWidget, PRICE_OPTIONS],
   information: [InformationWidget, INFORMATION_OPTIONS],
-  worldclock: [WorldClockWidget, WORLD_CLOCK_OPTIONS]
+  clock: [ClockWidget, CLOCK_OPTIONS],
+  date: [DateWidget, DATE_OPTIONS],
+  profile: [ProfileWidget, {}],
+  repository: [RepositoryWidget, REPOSITORY_OPTIONS],
 };
 
 const DEFAULT_OPTIONS: { [key: string]: OptionHOC } = {
@@ -73,13 +79,28 @@ const styles = StyleSheet.create({
   },
   extraContainer: {
     height: 20,
-    position: 'absolute',
+    position: 'fixed',
     top: 10,
     right: 10,
+    zIndex: 100,
+  },
+  componentContainer: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: 20,
+    paddingTop: 40,
+    width: '100%',
+    height: '100%',
   },
   icon: {
     height: 20,
-    position: 'absolute',
+    position: 'fixed',
     top: 10,
     left: 10,
   },
@@ -151,12 +172,12 @@ const WidgetComponent = ({ widget, removeWidget }: Props) => {
         </Menu.Item>
         {_.map(options, (hoc, key) => (
           <div key={key} className={css(styles.itemContainer)}>
-            {hoc(updateParams, params)}
+            {hoc(updateParams, params, data)}
           </div>
         ))}
       </Menu>
     ),
-    [deleteWidget, params, options]
+    [deleteWidget, params, options, data, updateParams]
   );
 
   const dropdown = useMemo(
@@ -168,14 +189,17 @@ const WidgetComponent = ({ widget, removeWidget }: Props) => {
     [dropdownMenu]
   );
 
-  const extra = useMemo(
+  const header = useMemo(
     () => (
-      <div className={css(styles.extraContainer)}>
-        {status === Status.loading && <Spin size={'small'} />}
-        {dropdown}
-      </div>
+      <>
+        <Icon className={css(styles.icon)} type={widget.icon} />
+        <div className={css(styles.extraContainer)}>
+          {status === Status.loading && <Spin size={'small'} />}
+          {dropdown}
+        </div>
+      </>
     ),
-    [status, dropdown]
+    [status, dropdown, widget]
   );
 
   useEffect(() => {
@@ -188,10 +212,16 @@ const WidgetComponent = ({ widget, removeWidget }: Props) => {
       className={css(styles.container)}
       loading={data === null && status === Status.loading}
     >
-      {extra}
-      <Icon className={css(styles.icon)} type={widget.icon} />
-      {data && <Component params={params} data={data} />}
-      {status === Status.failed && <Failure />}
+      {header}
+      {status === Status.failed ? (
+        <Failure />
+      ) : (
+        data && (
+          <div className={css(styles.componentContainer)}>
+            <Component params={params} data={data} />
+          </div>
+        )
+      )}
     </Card>
   );
 };

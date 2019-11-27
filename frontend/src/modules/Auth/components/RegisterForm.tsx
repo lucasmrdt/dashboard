@@ -1,10 +1,9 @@
 import React, { useMemo, useCallback } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Spin, Row, Col } from 'antd';
 import FacebookButton from './FacebookButton';
 import CredentialForm from './CredentialForm';
-import { CONNECT_PATH } from 'modules/Auth/constants/authRoutes';
 import { SERVICE_PATH } from 'modules/Service/constants/serviceRoutes';
 
 import { Status } from 'types/Status';
@@ -64,17 +63,9 @@ const AuthForm = ({ status, registerWithToken, registerWithCredential }: Props) 
           <CredentialForm isRegistering onResponse={onCredentialSubmit} />
         </Row>
         <Row>
-          <Col span={12} className={css(styles.center)}>
+          <Col span={24} className={css(styles.center)}>
             <FacebookButton onResponse={onOAuthSubmit} />
           </Col>
-          <Col span={12} className={css(styles.center)}>
-            <FacebookButton onResponse={onOAuthSubmit} />
-          </Col>
-        </Row>
-        <Row>
-          <p>
-            Already have an account? <Link to={CONNECT_PATH}>Connect now!</Link>
-          </p>
         </Row>
       </div>
     ),

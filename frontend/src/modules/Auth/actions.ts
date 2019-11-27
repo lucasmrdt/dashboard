@@ -54,3 +54,8 @@ export const authFailed = (error: string) => ({
     error,
   },
 });
+
+export const DISCONNECT = 'DISCONNECT';
+export const disconnect = () => ({
+  type: DISCONNECT,
+});
