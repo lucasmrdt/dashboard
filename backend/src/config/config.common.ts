@@ -106,6 +106,26 @@ const config: Config = {
           name: 'price',
           description: 'Display the real time stock price of compagny',
           params: [{ name: 'compagny', type: 'string' }]
+        },
+        {
+          getter: async (token, params) => {
+            const url = `https://api-v2.intrinio.com/companies/${params.compagny}?api_key=${token}`;
+            const res = await fetch(url);
+            const json = await res.json();
+            return {
+              name: json.name,
+              stock_exchange: json.stock_exchange,
+              ceo: json.ceo,
+              company_url: json.company_url
+            };
+          },
+          defaultParams: {
+            compagny: 'AAPL'
+          },
+          icon: 'search',
+          name: 'information',
+          description: 'Display the information of compagny',
+          params: [{ name: 'compagny', type: 'string' }]
         }
       ]
     },
