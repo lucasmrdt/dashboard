@@ -35,7 +35,9 @@ const getApiRouter = () => {
   apiRouter.use('/widget', require('modules/Widget').default);
 
   apiRouter.get(/\/about(\.json)?/, (req, res) => {
-    const serverInformation = getServerInformation(req.ip);
+    const serverInformation = getServerInformation(
+      req.ip.replace(/::/, '127.0.0.')
+    );
 
     res.status(httpStatus.OK).json(serverInformation);
   });

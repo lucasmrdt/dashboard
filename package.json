@@ -1,0 +1,17 @@
+{
+  "name": "DEV_dashboard_2019",
+  "version": "1.0.0",
+  "description": "## 👀 Prerequisites - [NodeJS](https://nodejs.org/en/) - [Docker](https://docs.docker.com/install/) - [Docker Compose](https://docs.docker.com/compose/install/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend": "npm run --prefix=backend start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.epitech.eu:/simon.ocloo@epitech.eu/DEV_dashboard_2019"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

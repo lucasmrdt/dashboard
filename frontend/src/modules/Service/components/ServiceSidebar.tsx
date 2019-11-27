@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
     height: '100%',
     background: 'white',
     borderRight: 0,
+    paddingTop: 70,
+    userSelect: 'none',
   },
   submenuContainer: {
     display: 'flex',
@@ -48,6 +50,12 @@ const styles = StyleSheet.create({
     bottom: 20,
     left: '50%',
     transform: 'translateX(-50%)',
+  },
+  title: {
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    top: 30,
   },
 });
 
@@ -143,6 +151,7 @@ const ServiceSidebar = ({
 
   return (
     <Menu mode={'inline'} className={css(styles.container)}>
+      <h1 className={css(styles.title)}>Dashboard!</h1>
       {status === Status.loading && <Loading />}
       {status === Status.failed && <Failure />}
       {status === Status.success && success}
