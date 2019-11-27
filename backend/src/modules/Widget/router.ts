@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { Router } from 'express';
 import Joi from '@hapi/joi';
 import httpStatus from 'http-status-codes';
@@ -52,7 +53,11 @@ widgetRouter.post(
     const { widgetName, serviceName } = req.params;
     const widget = await subscribeToWidget(user, serviceName, widgetName);
 
-    res.status(httpStatus.OK).json(success({ widget }));
+    res.status(httpStatus.OK).json(
+      success({
+        widget: _.pick(widget, ['_id', 'name', 'description', 'icon', 'params'])
+      })
+    );
   }
 );
 

@@ -34,7 +34,7 @@ const WidgetList = ({ widgets, status, getWidgets }: Props) => {
         cols={COLS}
       >
         {widgets.map(widget => (
-          <div style={{ overflow: 'scroll' }} key={widget._id}>
+          <div style={{ overflow: 'scroll' }} key={widget.id}>
             <WidgetContainer widget={widget} />
           </div>
         ))}

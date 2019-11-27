@@ -7,8 +7,10 @@ import { ServiceModel } from 'modules/Service/model';
 
 import { User } from 'modules/User/types';
 
-export const getWidgets = async (user: User) =>
-  WidgetModel.find({ user }).exec();
+export const getWidgets = async (user: User) => {
+  const widgets = await WidgetModel.find({ user }).exec();
+  return widgets.map(widget => widget.toJSON());
+};
 
 export const subscribeToWidget = async (
   user: User,
@@ -32,18 +34,18 @@ export const subscribeToWidget = async (
   }
 
   try {
-    return await WidgetModel.create({
+    const createdWidget = await WidgetModel.create({
       name: widget.name,
       description: widget.description,
       icon: widget.icon,
       params: {
         refreshInterval: DEFAULT_REFRESH_INTERVAL,
-        token: service.token,
         ...widget.defaultParams
       },
       user,
       service
     });
+    return createdWidget.toJSON();
   } catch (e) {
     throw createError(httpStatus.CONFLICT, {
       public: `fail to create widget ${widget.name}`,
@@ -52,9 +54,8 @@ export const subscribeToWidget = async (
   }
 };
 
-export const unsubscribeToWidget = async (widgetId: string) => {
+export const unsubscribeToWidget = async (widgetId: string) =>
   WidgetModel.deleteOne({ _id: widgetId }).exec();
-};
 
 export const getWidgetData = async (widgetId: string) => {
   const widget = await WidgetModel.findOne({ _id: widgetId })
