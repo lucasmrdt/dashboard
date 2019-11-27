@@ -9,6 +9,7 @@ import { TemperatureWidget, TEMPERATURE_OPTIONS } from './weathers/TemperatureWi
 import { WeatherWidget, WEATHER_OPTIONS } from './weathers/WeatherWidget';
 import { WindWidget, WIND_OPTIONS } from './weathers/WindWidget';
 import { PriceWidget, PRICE_OPTIONS } from './stocks/PriceWidget';
+import { WorldClockWidget, WORLD_CLOCK_OPTIONS } from './clocks/WorldClockWidget';
 
 import { Status } from 'types/Status';
 import { Response } from 'types/Api';
@@ -21,6 +22,7 @@ const WIDGET_BY_NAMES: {
   weather: [WeatherWidget, WEATHER_OPTIONS],
   wind: [WindWidget, WIND_OPTIONS],
   price: [PriceWidget, PRICE_OPTIONS],
+  worldclock: [WorldClockWidget, WORLD_CLOCK_OPTIONS]
 };
 
 const DEFAULT_OPTIONS: { [key: string]: OptionHOC } = {

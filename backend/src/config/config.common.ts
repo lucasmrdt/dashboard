@@ -110,10 +110,10 @@ const config: Config = {
       ]
     },
     {
-      name: 'time',
+      name: 'clock',
       needAuth: false,
-      icon: 'clock',
-      token: '',
+      icon: 'clock-circle',
+      token: 'none',
       widgets: [
         {
           getter: async (_, params) => {
@@ -125,8 +125,8 @@ const config: Config = {
           defaultParams: {
             timezone: 'Europe/Paris'
           },
-          icon: 'sliders',
-          name: 'world clock',
+          icon: 'clock-circle',
+          name: 'worldclock',
           description: 'Displays the time at a given timezone',
           params: [{ name: 'timezone', type: 'string' }]
         }

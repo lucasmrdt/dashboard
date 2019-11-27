@@ -1,10 +1,10 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import { Icon } from 'antd';
 import TimezoneSelect from 'fragments/TimezoneSelect';
 
 import { WidgetImplementation, OptionHOC } from '../../types';
+import moment from 'moment';
 
 export const WORLD_CLOCK_OPTIONS: { [key: string]: OptionHOC } = {
   timezone: (updater, params) => (
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 });
 
 interface Data {
-  time: number;
+  time: string;
 }
 
 interface Params {
@@ -56,8 +56,7 @@ interface Params {
 export const WorldClockWidget: WidgetImplementation<Data, Params> = ({ params, data }) => (
   <div className={css(styles.container)}>
     <p>{params.timezone}</p>
-    <h1 className={css(styles.title)}>
-      {data.time}
-    </h1>
+    <h1 className={css(styles.title)}>{moment(data.time).format('HH:mm')}</h1>
+    <p>{moment(data.time).format('DD MMMM YYYY')}</p>
   </div>
 );
